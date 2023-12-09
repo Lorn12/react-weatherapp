@@ -3,10 +3,13 @@ import WeatherInfo from "./WeatherInfo.js";
 import axios from "axios";
 import "./Weather.css";
 
+//DISPLAY LIVE WEATHER INFO (MAIN) & CLICK EVENTS COMPONENTS _________________________________________________________________
 export default function Weather(props) {
+  //STATES_________________________________________________________________
   const [weatherData, setWeatherData] = useState({ ready: false });
   const [city, setCity] = useState(props.defaultCity);
 
+  //EVENTS_________________________________________________________________
   function handleResponse(response) {
     setWeatherData({
       ready: true,
@@ -29,11 +32,14 @@ export default function Weather(props) {
     setCity(e.target.value);
   }
 
+  //ASYNCHRONOUS FUNCTION________________________________________________________
   function search() {
     const apiKey = "f09d3949047ab6c9e3bcaf79cf61f619";
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     axios.get(apiUrl).then(handleResponse);
   }
+
+  //CONDITIONALS_________________________________________________________________
 
   if (weatherData.ready) {
     return (
